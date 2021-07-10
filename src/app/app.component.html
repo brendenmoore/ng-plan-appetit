@@ -1,2 +1,15 @@
 <h1>Test</h1>
-<button (click)="loginTest()">Login Test</button>
+<button *ngIf="!isLoggedIn" (click)="loginTest()">Login Test</button>
+<p *ngIf="isLoggedIn">{{email}}</p>
+<h3 *ngIf="isLoggedIn && dataLoading">Loading Data</h3>
+<div *ngIf="userData">
+  <h3>Data</h3>
+  <p>Name: {{userData.name}}</p>
+  <h3>Recipes:</h3>
+  <ul>
+    <li *ngFor="let recipe of userData.recipes">
+      {{recipe.name}}
+    </li>
+  </ul>
+</div>
+
