@@ -1,0 +1,4 @@
+<h3>My recipes:</h3>
+<ul *ngIf="recipeList$">
+  <li *ngFor="let recipe of recipeList$ | async">{{recipe.name}}</li>
+</ul>

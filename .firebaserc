@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "plan-appetit": {
+      "hosting": {
+        "ng-prepappetit": [
+          "plan-appetit"
+        ]
+      }
+    }
+  }
+}
