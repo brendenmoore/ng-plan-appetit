@@ -1,12 +1,30 @@
-<h2>Plan Appetit</h2>
-<div *ngIf="auth.user | async as user; else showLogin">
-  <h4>Hello {{ user.displayName }}!</h4>
-  <button (click)="userService.logout()">Logout</button>
-  <app-recipe-list></app-recipe-list>
-  <app-add-recipe></app-add-recipe>
-</div>
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">Plan Appetit</a>
+  <ul *ngIf="auth.user | async as user" ngbNav>
+    <span class="navbar-text">Hello {{ user.displayName }}!</span>
+    <button (click)="userService.logout()" class="btn">Logout</button>
+  </ul>
+</nav>
+<div class="container">
+  <div *ngIf="auth.user | async as user; else showLogin">
+    <div class="bg-light p-5 mt-5">
+      <h2>Step 1: Add Recipes</h2>
+      <div class="row">
+        <app-add-recipe class="col"></app-add-recipe>
+        <app-recipe-list class="col"></app-recipe-list>
+      </div>
+    </div>
+    <div class="bg-light p-5 mt-5">
+      <h2>Step 2: Add Recipes To Meals</h2>
+      <div class="row">
+        <app-add-meal class="col"></app-add-meal>
+        <app-meal-list class="col"></app-meal-list>
+      </div>
+    </div>
+  </div>
 
-<ng-template #showLogin>
-  <p>Please login.</p>
-  <button (click)="userService.login()">Login with Google</button>
-</ng-template>
+  <ng-template #showLogin>
+    <p>Please login.</p>
+    <button (click)="userService.login()">Login with Google</button>
+  </ng-template>
+</div>

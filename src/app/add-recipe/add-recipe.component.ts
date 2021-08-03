@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService, Recipe } from '../database.service';
+import { DatabaseService} from '../services/database.service';
+import { RecipeService } from '../services/recipe.service';
 
 @Component({
   selector: 'app-add-recipe',
@@ -10,14 +11,14 @@ export class AddRecipeComponent implements OnInit {
 
   name: string = "";
 
-  constructor(private db: DatabaseService) { }
+  constructor(private recipeService: RecipeService) { }
 
   ngOnInit(): void {
   }
 
   submit(){
     console.log(this.name)
-    this.db.addRecipe({name: this.name}).then(recipe => this.name = "");
+    this.recipeService.addRecipe(this.name).then(recipe => this.name = "");
   }
 
 }

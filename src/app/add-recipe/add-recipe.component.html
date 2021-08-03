@@ -1,5 +1,10 @@
-<p>add-recipe works!</p>
+
 <form>
-  <input type="text" [(ngModel)]="name" name="name" autocomplete="off">
-  <button (click)="submit()">Add</button>
+  <div class="form-group">
+    <label>
+      Name
+      <input type="text" [(ngModel)]="name" name="name" autocomplete="off" class="form-control">
+    </label>
+  </div>
+  <button (click)="submit()" class="btn btn-outline-dark">Add</button>
 </form>
