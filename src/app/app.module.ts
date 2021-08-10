@@ -24,6 +24,8 @@ import { DeleteBtnComponent } from './shared/delete-btn/delete-btn.component';
 import { StepperComponent } from './stepper/stepper.component';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatFormFieldModule,
     MatButtonModule,
     DragDropModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent],

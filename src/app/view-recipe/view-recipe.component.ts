@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Recipe, RecipeDetails } from '../models';
@@ -10,6 +10,7 @@ import { RecipeService } from '../services/recipe.service';
   styleUrls: ['./view-recipe.component.css']
 })
 export class ViewRecipeComponent implements OnInit {
+  @Input() recipeId?: string;
   recipe$?: Observable<Recipe | undefined>;
   recipeDetails$?: Observable<RecipeDetails | undefined>;
 
@@ -17,12 +18,19 @@ export class ViewRecipeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.recipeId) {
+      console.log(this.recipeId)
+      this.loadData(this.recipeId)
+    }
     this.activatedRoute.params.subscribe(params => {
       let id = params['id']
-      console.log(id)
-      this.recipe$ = this.recipeService.getRecipeById(id).valueChanges({idField: "id"})
-      this.recipeDetails$ = this.recipeService.getRecipeDetails(id).valueChanges();
+      this.loadData(id)
     })
+  }
+
+  loadData(id: string){
+    this.recipe$ = this.recipeService.getRecipeById(id).valueChanges({idField: "id"})
+    this.recipeDetails$ = this.recipeService.getRecipeDetails(id).valueChanges();
   }
 
 }
