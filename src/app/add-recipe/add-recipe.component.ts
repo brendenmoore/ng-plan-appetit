@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { DatabaseService } from '../services/database.service';
 import { RecipeService } from '../services/recipe.service';
 
@@ -27,10 +28,12 @@ export class AddRecipeComponent implements OnInit {
         this.ingredients.split('\n')
       )
       .then((recipe) => {
+        
         this.name = '';
         this.notes = '';
         this.directions = '';
         this.ingredients = '';
       });
+
   }
 }

@@ -23,6 +23,8 @@ import { DragDropComponent } from './template-builder/drag-drop/drag-drop.compon
 import { DeleteBtnComponent } from './shared/delete-btn/delete-btn.component';
 import { StepperComponent } from './stepper/stepper.component';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
     MatFormFieldModule,
     MatButtonModule,
     DragDropModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

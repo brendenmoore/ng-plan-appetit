@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Recipe } from '../models';
 import { RecipeService } from '../services/recipe.service';
+import {
+  MatDialog,
+} from '@angular/material/dialog';
+import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
 
 @Component({
   selector: 'app-recipe-list',
@@ -11,7 +15,7 @@ import { RecipeService } from '../services/recipe.service';
 export class RecipeListComponent implements OnInit {
   recipeList$?: Observable<Recipe[]>;
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService, public dialog: MatDialog) {
     this.recipeList$ = this.recipeService
       .getRecipeList()
       ?.valueChanges({idField: "id"});
@@ -25,7 +29,7 @@ export class RecipeListComponent implements OnInit {
     }
   }
 
-  onTestClick(recipe: Recipe) {
-    console.log(recipe)
+  openDialog(){
+    const dialogRef = this.dialog.open(AddRecipeComponent);
   }
 }
