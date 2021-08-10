@@ -39,13 +39,24 @@ export class RecipeService {
     return this.recipes.doc(id);
   }
 
-  addRecipe(name: string) {
+  getRecipeDetails(id: string) {
+    return this.recipeDetails.doc(id);
+  }
+
+  addRecipe(name: string, notes?: string, directions?: string, ingredients?: string[]) {
     let batch = this.store.firestore.batch();
     let id = this.databaseService.generateUid();
     let recipeRef = this.recipes.doc(id).ref;
     let recipeDetailsRef = this.recipeDetails.doc(id).ref;
-    batch.set(recipeRef, new Recipe(name));
-    batch.set(recipeDetailsRef, new RecipeDetails(id));
+    let newRecipe = new Recipe(name)
+    let newRecipeDetails = new RecipeDetails(
+      id,
+      notes,
+      directions,
+      ingredients
+    );
+    batch.set(recipeRef, newRecipe.toObject());
+    batch.set(recipeDetailsRef, newRecipeDetails.toObject());
 
     return batch.commit();
   }
@@ -60,11 +71,8 @@ export class RecipeService {
     return batch.commit();
   }
 
-  getRecipeDetails(id: string) {
-    return this.recipeDetails.doc(id);
-  }
 
   updateRecipeDetails(recipeDetails: RecipeDetails) {
-    return this.getRecipeById(recipeDetails.id).update(recipeDetails);
+    return this.getRecipeById(recipeDetails.id).update(recipeDetails.toObject());
   }
 }

@@ -6,6 +6,9 @@ export class Recipe {
     this.name = name;
     this.createdOn = new Date();
   }
+  toObject(): {name: string, createdOn: Date}{
+    return {name: this.name, createdOn: this.createdOn}
+  }
 }
 
 export class RecipeDetails {
@@ -19,6 +22,10 @@ export class RecipeDetails {
     this.notes = notes;
     this.directions = directions;
     this.ingredients = ingredients;
+  }
+
+  toObject(): {id: string, notes?: string, directions?: string, ingredients?: string[]} {
+    return {id: this.id, notes: this.notes, directions: this.directions, ingredients: this.ingredients}
   }
 }
 

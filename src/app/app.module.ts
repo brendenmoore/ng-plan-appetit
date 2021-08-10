@@ -22,6 +22,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DragDropComponent } from './template-builder/drag-drop/drag-drop.component';
 import { DeleteBtnComponent } from './shared/delete-btn/delete-btn.component';
 import { StepperComponent } from './stepper/stepper.component';
+import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { StepperComponent } from './stepper/stepper.component';
     DragDropComponent,
     DeleteBtnComponent,
     StepperComponent,
+    ViewRecipeComponent,
   ],
   imports: [
     BrowserModule,

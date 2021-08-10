@@ -1,9 +1,47 @@
-
 <form>
   <div class="form-group">
     <label>
       Name
-      <input type="text" [(ngModel)]="name" name="name" autocomplete="off" class="form-control">
+      <input
+        type="text"
+        [(ngModel)]="name"
+        name="name"
+        autocomplete="off"
+        class="form-control"
+      />
+    </label>
+  </div>
+  <div class="form-group">
+    <label>
+      Directions
+      <textarea
+        [(ngModel)]="directions"
+        name="directions"
+        autocomplete="off"
+        class="form-control"
+      ></textarea>
+    </label>
+  </div>
+  <div class="form-group">
+    <label>
+      Notes
+      <textarea
+        [(ngModel)]="notes"
+        name="notes"
+        autocomplete="off"
+        class="form-control"
+      ></textarea>
+    </label>
+  </div>
+  <div class="form-group">
+    <label>
+      Ingredients - enter each ingredient on it's own line
+      <textarea
+        [(ngModel)]="ingredients"
+        name="ingredients"
+        autocomplete="off"
+        class="form-control"
+      ></textarea>
     </label>
   </div>
   <button (click)="submit()" class="btn btn-outline-dark">Add</button>

@@ -1,0 +1,10 @@
+<div *ngIf="recipe$ | async as recipe">
+  <h3>{{ recipe.name }}</h3>
+</div>
+<div *ngIf="recipeDetails$ | async as data">
+  <p>{{ data.directions }}</p>
+  <p>{{ data.notes }}</p>
+  <ul>
+    <li *ngFor="let ingredient of data.ingredients">{{ingredient}}</li>
+  </ul>
+</div>
