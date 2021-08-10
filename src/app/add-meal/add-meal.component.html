@@ -16,7 +16,7 @@
     <label>
       Select Recipes:
       <select multiple class="form-control" [(ngModel)]="selectedRecipes" name="selectedRecipes">
-        <option *ngFor="let recipe of recipes$ | async" [value]="recipe.id">{{recipe.name}}</option>
+        <option *ngFor="let recipe of recipes$ | async" [value]="recipe">{{recipe.name}}</option>
       </select>
     </label>
   </div>

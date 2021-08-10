@@ -12,7 +12,7 @@ import { RecipeService } from '../services/recipe.service';
 export class AddMealComponent implements OnInit {
   recipes$?: Observable<Recipe[]>;
   mealName: string = '';
-  selectedRecipes: string[] = [];
+  selectedRecipes: Recipe[] = [];
 
   constructor(
     private mealService: MealService,
@@ -26,8 +26,8 @@ export class AddMealComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    this.mealService.addMeal(this.mealName, this.selectedRecipes).then(() => {
-      (this.selectedRecipes = []), (this.mealName = '');
+    this.mealService.addMeal(this.selectedRecipes).then(() => {
+      this.selectedRecipes = [];
     });
   }
 

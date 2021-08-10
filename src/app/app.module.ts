@@ -14,9 +14,26 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddMealComponent } from './add-meal/add-meal.component';
 import { MealListComponent } from './meal-list/meal-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DragDropComponent } from './template-builder/drag-drop/drag-drop.component';
+import { DeleteBtnComponent } from './shared/delete-btn/delete-btn.component';
+import { StepperComponent } from './stepper/stepper.component';
 
 @NgModule({
-  declarations: [AppComponent, RecipeListComponent, AddRecipeComponent, AddMealComponent, MealListComponent],
+  declarations: [
+    AppComponent,
+    RecipeListComponent,
+    AddRecipeComponent,
+    AddMealComponent,
+    MealListComponent,
+    DragDropComponent,
+    DeleteBtnComponent,
+    StepperComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -26,6 +43,11 @@ import { MealListComponent } from './meal-list/meal-list.component';
     AngularFirestoreModule,
     AngularFireAuthModule,
     NgbModule,
+    BrowserAnimationsModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

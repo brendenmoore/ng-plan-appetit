@@ -18,20 +18,7 @@ export class MealListComponent implements OnInit {
   ) {
     this.mealList$ = this.mealService
       .getMealList()
-      ?.valueChanges({ idField: 'id' })
-      .pipe(
-        map((meals) => {
-          return meals.map((meal) => {
-            let recipes = meal.recipes;
-            for (let recipe of recipes) {
-              this.recipeService.getRecipeById(recipe.recipeId).get().subscribe(result => {
-                recipe.name = result.data()?.name;
-              });
-            }
-            return { ...meal, recipes: recipes };
-          });
-        })
-      );
+      ?.valueChanges({ idField: 'id' });
   }
 
   ngOnInit(): void {}
@@ -42,8 +29,7 @@ export class MealListComponent implements OnInit {
     }
   }
 
-  onLog(meal: Meal){
-    console.log(meal)
+  onLog(meal: Meal) {
+    console.log(meal);
   }
-
 }
