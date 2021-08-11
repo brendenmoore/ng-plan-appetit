@@ -19,13 +19,14 @@ export class ViewRecipeComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.recipeId) {
-      console.log(this.recipeId)
+      console.log("input: " + this.recipeId)
       this.loadData(this.recipeId)
+    } else {
+      this.activatedRoute.params.subscribe(params => {
+        let id = params['id']
+        this.loadData(id)
+      })
     }
-    this.activatedRoute.params.subscribe(params => {
-      let id = params['id']
-      this.loadData(id)
-    })
   }
 
   loadData(id: string){

@@ -36,6 +36,7 @@ export class RecipeService {
   }
 
   getRecipeById(id: string) {
+    console.log("called with id: " + id)
     return this.recipes.doc(id);
   }
 
