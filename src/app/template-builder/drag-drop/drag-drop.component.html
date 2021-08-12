@@ -27,7 +27,7 @@
       <div
         cdkDropList
         #MealList="cdkDropList"
-        [cdkDropListData]="meal"
+        [cdkDropListData]="{type: 'meal', meal: meal}"
         [id]="meal.id"
         class="list"
         (cdkDropListDropped)="drop($event)"

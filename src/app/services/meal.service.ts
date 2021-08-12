@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import { Meal, Recipe, Template } from '../models';
 import { UserService } from '../user.service';
 import { RecipeService } from './recipe.service';
+import { generateUid, newMeal } from './util';
 
 @Injectable({
   providedIn: 'root',
@@ -40,10 +41,7 @@ export class MealService {
   }
 
   createTemplate(template: Template) {
-    return this.template.set({
-      unscheduledMeals: template.unscheduledMeals,
-      scheduledMeals: template.scheduledMeals,
-    });
+    return this.template.set(template);
   }
 
   getTemplate(): Observable<Template | undefined> {
@@ -62,7 +60,8 @@ export class MealService {
   }
 
   addMeal(recipes?: Recipe[]) {
-    return this.meals.add(new Meal(recipes));
+    let meal = newMeal(recipes)
+    return this.meals.add(meal);
   }
 
   addRecipeToMeal(recipe: Recipe, meal: DocumentReference<Meal>) {

@@ -49,15 +49,15 @@ export class RecipeService {
     let id = this.databaseService.generateUid();
     let recipeRef = this.recipes.doc(id).ref;
     let recipeDetailsRef = this.recipeDetails.doc(id).ref;
-    let newRecipe = new Recipe(name)
-    let newRecipeDetails = new RecipeDetails(
-      id,
-      notes,
-      directions,
-      ingredients
-    );
-    batch.set(recipeRef, newRecipe.toObject());
-    batch.set(recipeDetailsRef, newRecipeDetails.toObject());
+    let newRecipe = {name: name, createdOn: Date.now()}
+    let newRecipeDetails = {
+      id: id,
+      notes: notes,
+      directions: directions,
+      ingredients: ingredients
+    };
+    batch.set(recipeRef, newRecipe);
+    batch.set(recipeDetailsRef, newRecipeDetails);
 
     return batch.commit();
   }
@@ -74,6 +74,6 @@ export class RecipeService {
 
 
   updateRecipeDetails(recipeDetails: RecipeDetails) {
-    return this.getRecipeById(recipeDetails.id).update(recipeDetails.toObject());
+    return this.getRecipeById(recipeDetails.id).update(recipeDetails);
   }
 }

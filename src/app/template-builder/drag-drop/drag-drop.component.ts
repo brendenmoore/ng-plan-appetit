@@ -5,6 +5,7 @@ import { Meal, Recipe, Template } from 'src/app/models';
 import { Observable } from 'rxjs';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { MealService } from 'src/app/services/meal.service';
+import { newMeal } from 'src/app/services/util';
 
 @Component({
   selector: 'app-drag-drop',
@@ -28,7 +29,7 @@ export class DragDropComponent {
   loadTemplate() {
     this.mealService.getTemplate().subscribe(template => {
       if (!template) {
-        this.template = {scheduledMeals: [], unscheduledMeals: []};
+        this.template = {unscheduledMeals: [], scheduledMeals: []};
         this.mealService.createTemplate(this.template);
       } else {
         this.template = template;
@@ -43,7 +44,7 @@ export class DragDropComponent {
   }
 
   addDay() {
-    this.template?.scheduledMeals.push(new Meal())
+    this.template?.scheduledMeals.push(newMeal());
   }
 
   noReturnPredicate() {
@@ -53,21 +54,21 @@ export class DragDropComponent {
   drop(event: CdkDragDrop<any>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
-        event.container.data.recipes,
+        event.container.data.meal.recipes,
         event.previousIndex,
         event.currentIndex
       );
-    } else if(event.previousContainer.data instanceof Meal) {
+    } else if(event.previousContainer.data.type === 'meal') {
       transferArrayItem(
-        event.previousContainer.data.recipes,
-        event.container.data.recipes,
+        event.previousContainer.data.meal.recipes,
+        event.container.data.meal.recipes,
         event.previousIndex,
         event.currentIndex
       )
     } else {
       copyArrayItem(
         event.previousContainer.data,
-        event.container.data.recipes,
+        event.container.data.meal.recipes,
         event.previousIndex,
         event.currentIndex
       );
