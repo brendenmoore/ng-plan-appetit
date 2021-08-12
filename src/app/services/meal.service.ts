@@ -8,7 +8,7 @@ import {
 import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Meal, Recipe } from '../models';
+import { Meal, Recipe, Template } from '../models';
 import { UserService } from '../user.service';
 import { RecipeService } from './recipe.service';
 
@@ -18,6 +18,7 @@ import { RecipeService } from './recipe.service';
 export class MealService {
   userId?: string;
   meals: AngularFirestoreCollection<Meal>;
+  template: AngularFirestoreDocument<Template>;
   mealArray: Meal[] = [];
   constructor(
     private store: AngularFirestore,
@@ -25,14 +26,35 @@ export class MealService {
     private recipeService: RecipeService
   ) {
     this.userId = this.user.uid;
-    this.meals = this.store
-      .collection<Meal>('users/' + this.userId + '/meals', (ref) =>
-        ref.orderBy('createdOn')
-      )
+    this.template = this.store.doc<Template>(
+      'users/' + this.userId + '/template/template'
+    );
+    this.meals = this.store.collection<Meal>(
+      'users/' + this.userId + '/meals',
+      (ref) => ref.orderBy('createdOn')
+    );
   }
 
   getMealArray(): Meal[] {
     return this.mealArray;
+  }
+
+  createTemplate(template: Template) {
+    return this.template.set({
+      unscheduledMeals: template.unscheduledMeals,
+      scheduledMeals: template.scheduledMeals,
+    });
+  }
+
+  getTemplate(): Observable<Template | undefined> {
+    return this.template.valueChanges();
+  }
+
+  updateTemplate(template: Template) {
+    return this.template.update({
+      unscheduledMeals: template.unscheduledMeals,
+      scheduledMeals: template.scheduledMeals,
+    });
   }
 
   getMealList(): AngularFirestoreCollection<Meal> | undefined {

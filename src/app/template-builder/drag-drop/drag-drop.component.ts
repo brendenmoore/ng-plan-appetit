@@ -1,23 +1,10 @@
 import { Component } from '@angular/core';
 import { CdkDragDrop, copyArrayItem, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Recipe } from 'src/app/models';
+import { Meal, Recipe, Template } from 'src/app/models';
 import { Observable } from 'rxjs';
 import { RecipeService } from 'src/app/services/recipe.service';
-
-class Meal {
-  id: string;
-  recipes: Recipe[]
-
-  constructor() {
-    this.id = Date.now().toString();
-    this.recipes = [];
-  }
-}
-
-interface Template {
-  meals: Meal[]
-}
+import { MealService } from 'src/app/services/meal.service';
 
 @Component({
   selector: 'app-drag-drop',
@@ -26,11 +13,11 @@ interface Template {
 })
 export class DragDropComponent {
   recipes?: Recipe[];
-  sampleMeal: Meal = { id: 'testMealId', recipes: [] };
-  template: Template = {meals: []}
+  template?: Template;
 
-  constructor(private recipeService: RecipeService) {
-    recipeService
+  constructor(private recipeService: RecipeService, private mealService: MealService) {
+    this.loadTemplate();
+    this.recipeService
       .getRecipeList()
       ?.valueChanges({ idField: 'id' })
       .subscribe((recipes) => {
@@ -38,8 +25,25 @@ export class DragDropComponent {
       });
   }
 
+  loadTemplate() {
+    this.mealService.getTemplate().subscribe(template => {
+      if (!template) {
+        this.template = {scheduledMeals: [], unscheduledMeals: []};
+        this.mealService.createTemplate(this.template);
+      } else {
+        this.template = template;
+      }
+    })
+  }
+
+  updateTemplate() {
+    if (this.template){
+      this.mealService.updateTemplate(this.template)
+    }
+  }
+
   addDay() {
-    this.template.meals.push(new Meal())
+    this.template?.scheduledMeals.push(new Meal())
   }
 
   noReturnPredicate() {
@@ -68,5 +72,7 @@ export class DragDropComponent {
         event.currentIndex
       );
     }
+    console.log(this.template)
+    this.updateTemplate();
   }
 }

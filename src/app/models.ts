@@ -1,3 +1,5 @@
+import { generateUid } from "./services/util";
+
 export class Recipe {
   id?: string;
   name: string;
@@ -29,12 +31,15 @@ export class RecipeDetails {
   }
 }
 
+
+
 export class Meal {
-  id?: string;
+  id: string;
   createdOn: Date;
   recipes: Array<Recipe>;
 
   constructor(recipes: Recipe[] = []) {
+    this.id = generateUid();
     this.createdOn = new Date();
     this.recipes = recipes;
   }
