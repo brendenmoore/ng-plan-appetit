@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit {
     const firstDay = this.daysInView[0]
     const numberOfDays = this.daysInView.length
     this.menuService.getMenuDaysInRange(firstDay, numberOfDays).valueChanges().subscribe(menuDays => this.menuDays = menuDays)
-    this.mealService.getTemplate().subscribe(template => this.template = template);
+    this.mealService.getTemplate().subscribe(template => {this.template = template; console.log(template)});
   }
 
   ngOnInit(): void {}

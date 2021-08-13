@@ -1,17 +1,25 @@
 <div *ngIf="daysInView">
   Calender:
   <ul>
-    <!-- <li *ngFor="let day of days; index as i">
-      {{ day.dateString }} -->
-      <!-- <ng-template #suggestion>
-        <div *ngIf="template.scheduledMeals[i]">
-          Suggested Meal:
-          <p *ngFor="let recipe of template.scheduledMeals[i].recipes">
-            {{ recipe.name }}
-          </p>
-          <button (click)="onAccept(day, template.scheduledMeals[i])">Accept</button>
+    <li *ngFor="let day of daysInView; index as i">
+      {{ day | date }}
+      <div *ngIf="menuDays && menuDays[i]; else suggestion">
+        <div *ngIf="menuDays[i].meal as meal">
+          Scheduled Meal:
+          <p *ngFor="let recipe of meal.recipes">{{ recipe.name }}</p>
         </div>
-      </ng-template> -->
-    <!-- </li> -->
+      </div>
+      <ng-template #suggestion>
+        <div *ngIf="template">
+          <div *ngIf="template.scheduledMeals[i] as meal">
+            Suggested Meal:
+            <p *ngFor="let recipe of meal.recipes">
+              {{ recipe.name }}
+            </p>
+            <button (click)="onAccept(day, meal)">Accept</button>
+          </div>
+        </div>
+      </ng-template>
+    </li>
   </ul>
 </div>
