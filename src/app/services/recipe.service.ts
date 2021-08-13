@@ -67,15 +67,42 @@ export class RecipeService {
     return batch.commit();
   }
 
+  // deleteRecipeOLD(id: string) {
+  //   let batch = this.store.firestore.batch();
+  //   let recipeRef = this.recipes.doc<Recipe>(id).ref;
+  //   let recipeDetailsRef = this.recipeDetails.doc(id).ref;
+  //   batch.delete(recipeRef);
+  //   batch.delete(recipeDetailsRef);
+
+  //   return batch.commit();
+  // }
+
   deleteRecipe(id: string) {
-    let batch = this.store.firestore.batch();
     let recipeRef = this.recipes.doc<Recipe>(id).ref;
     let recipeDetailsRef = this.recipeDetails.doc(id).ref;
-    batch.delete(recipeRef);
-    batch.delete(recipeDetailsRef);
+    let templateRef = this.store.doc<Template>(
+      'users/' + this.userId + '/template/template'
+    ).ref;
+    this.store.firestore.runTransaction(transaction => {
+      return Promise.all([transaction.get(templateRef)]).then(([template]) => {
+         const scheduledMeals = [...(template.data()?.scheduledMeals || [])];
+         const updatedScheduledMeals = scheduledMeals.map((meal) => {
+           const updatedRecipes = meal.recipes.filter((recipe) => {
+             return recipe.id !== id
+           });
+           meal.recipes = updatedRecipes;
+           return meal;
+         });
 
-    return batch.commit();
+         transaction.update(templateRef, {
+           scheduledMeals: updatedScheduledMeals,
+         });
+         transaction.delete(recipeRef);
+         transaction.delete(recipeDetailsRef)
+      })
+    })
   }
+
 
   updateRecipeName(newRecipe: Recipe) {
     let recipeRef = this.recipes.doc<Recipe>(newRecipe.id).ref;
