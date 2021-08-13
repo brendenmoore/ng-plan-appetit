@@ -25,6 +25,7 @@ import { StepperComponent } from './stepper/stepper.component';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MenuComponent } from './menu/menu.component';
 
 
 
@@ -39,6 +40,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     DeleteBtnComponent,
     StepperComponent,
     ViewRecipeComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,

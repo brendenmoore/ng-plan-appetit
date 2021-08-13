@@ -8,7 +8,7 @@ import {
 import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Meal, Recipe, Template } from '../models';
+import { Meal, Menu, Recipe, Template } from '../models';
 import { UserService } from '../user.service';
 import { RecipeService } from './recipe.service';
 import { generateUid, newMeal } from './util';
@@ -20,11 +20,9 @@ export class MealService {
   userId?: string;
   meals: AngularFirestoreCollection<Meal>;
   template: AngularFirestoreDocument<Template>;
-  mealArray: Meal[] = [];
   constructor(
     private store: AngularFirestore,
     private user: UserService,
-    private recipeService: RecipeService
   ) {
     this.userId = this.user.uid;
     this.template = this.store.doc<Template>(
@@ -34,10 +32,6 @@ export class MealService {
       'users/' + this.userId + '/meals',
       (ref) => ref.orderBy('createdOn')
     );
-  }
-
-  getMealArray(): Meal[] {
-    return this.mealArray;
   }
 
   createTemplate(template: Template) {

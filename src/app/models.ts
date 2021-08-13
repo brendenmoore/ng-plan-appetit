@@ -83,7 +83,8 @@ export interface Template {
 // }
 
 export interface MenuDay {
-  date: Date;
+  dateString: string;
+  dateNumber: number;
   meal: Meal;
 }
 
