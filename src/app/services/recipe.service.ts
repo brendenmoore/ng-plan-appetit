@@ -3,7 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
-import { Recipe, RecipeDetails } from '../models';
+import { Recipe, RecipeDetails, Template } from '../models';
 import { UserService } from '../user.service';
 import firebase from 'firebase/app';
 import { DatabaseService } from './database.service';
@@ -36,7 +36,7 @@ export class RecipeService {
   }
 
   getRecipeById(id: string) {
-    console.log("called with id: " + id)
+    console.log('called with id: ' + id);
     return this.recipes.doc(id);
   }
 
@@ -44,17 +44,22 @@ export class RecipeService {
     return this.recipeDetails.doc(id);
   }
 
-  addRecipe(name: string, notes?: string, directions?: string, ingredients?: string[]) {
+  addRecipe(
+    name: string,
+    notes?: string,
+    directions?: string,
+    ingredients?: string[]
+  ) {
     let batch = this.store.firestore.batch();
     let id = this.databaseService.generateUid();
     let recipeRef = this.recipes.doc(id).ref;
     let recipeDetailsRef = this.recipeDetails.doc(id).ref;
-    let newRecipe = {name: name, createdOn: Date.now()}
+    let newRecipe = { name: name, createdOn: Date.now() };
     let newRecipeDetails = {
       id: id,
       notes: notes,
       directions: directions,
-      ingredients: ingredients
+      ingredients: ingredients,
     };
     batch.set(recipeRef, newRecipe);
     batch.set(recipeDetailsRef, newRecipeDetails);
@@ -72,6 +77,37 @@ export class RecipeService {
     return batch.commit();
   }
 
+  updateRecipeName(newRecipe: Recipe) {
+    let recipeRef = this.recipes.doc<Recipe>(newRecipe.id).ref;
+    let templateRef = this.store.doc<Template>(
+      'users/' + this.userId + '/template/template'
+    ).ref;
+    this.store.firestore.runTransaction((transaction) => {
+      return Promise.all([
+        transaction.get(templateRef),
+        transaction.get(recipeRef),
+      ]).then(([template, recipe]) => {
+
+        const scheduledMeals = [...(template.data()?.scheduledMeals || [])];
+        const updatedScheduledMeals = scheduledMeals.map((meal) => {
+          meal.recipes.forEach((recipe) => {
+            if (recipe.id === newRecipe.id) {
+              recipe.name = newRecipe.name;
+              console.log("updated template")
+            }
+            return recipe;
+          });
+          return meal;
+        });
+
+        console.log(updatedScheduledMeals)
+
+        transaction.update(templateRef, {scheduledMeals: updatedScheduledMeals})
+        transaction.update(recipeRef, {name: newRecipe.name})
+
+      });
+    });
+  }
 
   updateRecipeDetails(recipeDetails: RecipeDetails) {
     return this.getRecipeById(recipeDetails.id).update(recipeDetails);

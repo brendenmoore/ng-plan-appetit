@@ -34,4 +34,10 @@ export class ViewRecipeComponent implements OnInit {
     this.recipeDetails$ = this.recipeService.getRecipeDetails(id).valueChanges();
   }
 
+  updateName(recipe: Recipe){
+    if (recipe.name) {
+      this.recipeService.updateRecipeName(recipe)
+    }
+  }
+
 }

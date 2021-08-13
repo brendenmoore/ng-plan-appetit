@@ -1,5 +1,7 @@
 <div *ngIf="recipe$ | async as recipe">
   <h3>{{ recipe.name }}</h3>
+  <input type="text" [(ngModel)]="recipe.name">
+  <button (click)="updateName(recipe)">Update</button>
 </div>
 <div *ngIf="recipeDetails$ | async as data">
   <p>{{ data.directions }}</p>
