@@ -36,6 +36,9 @@
           {{ item.name }} <app-delete-btn></app-delete-btn>
         </div>
       </div>
+      <div *ngIf="recipes">
+        <app-recipe-selector [recipes]="recipes" (recipeSelected)="addRecipeToMeal($event, meal)"></app-recipe-selector>
+      </div>
     </div>
   </div>
 </div>

@@ -1,0 +1,17 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Add Recipe</mat-label>
+    <input type="text"
+           placeholder="Add Recipe"
+           aria-label="Recipe Selector"
+           matInput
+           [formControl]="recipeInput"
+           [matAutocomplete]="auto"/>
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSelect($event)">
+      <mat-option *ngFor="let recipe of filteredOptions | async" [value]="recipe">
+        {{recipe.name}}
+      </mat-option>
+      <mat-option value="new"> New Recipe </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

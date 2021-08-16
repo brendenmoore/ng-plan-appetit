@@ -10,7 +10,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddMealComponent } from './add-meal/add-meal.component';
 import { MealListComponent } from './meal-list/meal-list.component';
@@ -26,6 +26,9 @@ import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MenuComponent } from './menu/menu.component';
+import { RecipeSelectorComponent } from './shared/recipe-selector/recipe-selector.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -41,11 +44,13 @@ import { MenuComponent } from './menu/menu.component';
     StepperComponent,
     ViewRecipeComponent,
     MenuComponent,
+    RecipeSelectorComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
@@ -57,7 +62,9 @@ import { MenuComponent } from './menu/menu.component';
     MatButtonModule,
     DragDropModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatAutocompleteModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent],

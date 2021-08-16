@@ -51,6 +51,11 @@ export class DragDropComponent {
     return false;
   }
 
+  addRecipeToMeal(recipe: Recipe, meal: Meal) {
+    meal.recipes.push(recipe)
+    this.updateTemplate();
+  }
+
   drop(event: CdkDragDrop<any>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
