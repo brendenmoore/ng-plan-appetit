@@ -56,6 +56,11 @@ export class DragDropComponent {
     this.updateTemplate();
   }
 
+  removeRecipeFromMeal(recipeToRemove: Recipe, meal: Meal) {
+    meal.recipes = meal.recipes.filter(recipe => recipe.id !== recipeToRemove.id)
+    this.updateTemplate()
+  }
+
   drop(event: CdkDragDrop<any>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
