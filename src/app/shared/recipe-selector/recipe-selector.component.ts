@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AddRecipeComponent } from 'src/app/add-recipe/add-recipe.component';
 import { Recipe } from 'src/app/models';
+import { RecipeService } from 'src/app/services/recipe.service';
+import { generateUid } from 'src/app/services/util';
 
 @Component({
   selector: 'app-recipe-selector',
@@ -18,7 +20,7 @@ export class RecipeSelectorComponent implements OnInit {
   filteredOptions?: Observable<Recipe[]>;
   @Output() recipeSelected: EventEmitter<Recipe> = new EventEmitter();
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private recipeService: RecipeService) {}
 
   ngOnInit(): void {
     this.filteredOptions = this.recipeInput.valueChanges.pipe(
@@ -33,8 +35,12 @@ export class RecipeSelectorComponent implements OnInit {
   }
 
   onSelect(event: MatAutocompleteSelectedEvent) {
-    if (event.option.value === 'new') {
-      this.dialog.open(AddRecipeComponent)
+    if (typeof event.option.value === 'string') {
+      console.log(event.option.value)
+      let newRecipe: Recipe = {id: generateUid(), name: event.option.value, createdOn: Date.now()};
+      this.recipeService.addRecipe(event.option.value, undefined, undefined, undefined, newRecipe.id).then(result => {
+        this.recipeSelected.emit(newRecipe)
+      })
     } else {
       this.recipeSelected.emit(event.option.value);
       this.recipeInput.reset('');

@@ -46,12 +46,12 @@ export class RecipeService {
 
   addRecipe(
     name: string,
-    notes?: string,
-    directions?: string,
-    ingredients?: string[]
+    notes: string = "",
+    directions: string = "",
+    ingredients: string[] = [],
+    id : string = this.databaseService.generateUid()
   ) {
     let batch = this.store.firestore.batch();
-    let id = this.databaseService.generateUid();
     let recipeRef = this.recipes.doc(id).ref;
     let recipeDetailsRef = this.recipeDetails.doc(id).ref;
     let newRecipe = { name: name, createdOn: Date.now() };
