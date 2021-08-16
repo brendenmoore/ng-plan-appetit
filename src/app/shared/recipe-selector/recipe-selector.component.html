@@ -1,4 +1,6 @@
-<form class="example-form">
+<form class="example-form"
+*ngIf="filteredOptions | async as options"
+>
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Add Recipe</mat-label>
     <input
@@ -15,12 +17,12 @@
       (optionSelected)="onSelect($event)"
     >
       <mat-option
-        *ngFor="let recipe of filteredOptions | async"
+        *ngFor="let recipe of options"
         [value]="recipe"
       >
         {{ recipe.name }}
       </mat-option>
-      <mat-option [value]="recipeInput.value">
+      <mat-option *ngIf="options.length === 0" [value]="recipeInput.value">
         Create "{{ recipeInput.value }}"
       </mat-option>
     </mat-autocomplete>
