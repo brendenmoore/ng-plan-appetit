@@ -1,12 +1,14 @@
-<div *ngIf="daysInView">
-  Calender:
-  <ul>
-    <li *ngFor="let day of daysInView; index as i">
-      {{ day | date }}
-      <div *ngIf="menuDays && menuDays[i]; else suggestion">
-        <div *ngIf="menuDays[i].meal as meal">
-          Scheduled Meal:
-          <p *ngFor="let recipe of meal.recipes">{{ recipe.name }}</p>
+<div *ngIf="menu">
+  <h4 class="mt-5 mb-3">Upcoming Meals:</h4>
+  <ul cdkDropListGroup class="list-group">
+    <li *ngFor="let day of menu; index as i" class="list-group-item">
+      <p>{{ day.date | date }}</p>
+      <div *ngIf="day.menuDay; else suggestion">
+        <div *ngIf="day.menuDay.meal as meal">
+          <div cdkDropList [cdkDropListData]="meal" class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="example-box" cdkDrag *ngFor="let recipe of meal.recipes">{{ recipe.name }}</div>
+          </div>
+          <app-recipe-selector></app-recipe-selector>
         </div>
       </div>
       <ng-template #suggestion>
@@ -16,7 +18,7 @@
             <p *ngFor="let recipe of meal.recipes">
               {{ recipe.name }}
             </p>
-            <button (click)="onAccept(day, meal)">Accept</button>
+            <button (click)="onAccept(day.date, meal)">Accept</button>
           </div>
         </div>
       </ng-template>
