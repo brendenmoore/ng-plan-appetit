@@ -1,0 +1,5 @@
+<div *ngIf="menuDay">
+  <h4>Today's Meal</h4>
+  <app-view-recipe *ngFor="let recipe of menuDay.meal.recipes" [recipeId]="recipe.id"></app-view-recipe>
+</div>
+

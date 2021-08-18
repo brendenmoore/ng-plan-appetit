@@ -85,6 +85,7 @@ export class RecipeService {
     let templateRef = this.store.doc<Template>(
       'users/' + this.userId + '/template/template'
     ).ref;
+    
     this.store.firestore.runTransaction(transaction => {
       return Promise.all([transaction.get(templateRef)]).then(([template]) => {
          const scheduledMeals = [...(template.data()?.scheduledMeals || [])];

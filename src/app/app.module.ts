@@ -29,6 +29,7 @@ import { MenuComponent } from './menu/menu.component';
 import { RecipeSelectorComponent } from './shared/recipe-selector/recipe-selector.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
+import { TodayViewComponent } from './today-view/today-view.component';
 
 
 
@@ -45,6 +46,7 @@ import { MatInputModule } from '@angular/material/input';
     ViewRecipeComponent,
     MenuComponent,
     RecipeSelectorComponent,
+    TodayViewComponent,
   ],
   imports: [
     BrowserModule,
