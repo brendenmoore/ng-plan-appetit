@@ -22,8 +22,8 @@
       >
         {{ recipe.name }}
       </mat-option>
-      <mat-option *ngIf="options.length === 0" [value]="recipeInput.value">
-        Create "{{ recipeInput.value }}"
+      <mat-option *ngIf="recipeInput.value" [value]="recipeInput.value">
+        <span style="color:gray">Create</span> "{{ recipeInput.value }}"
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

@@ -15,6 +15,7 @@ export class RecipeService {
   userId?: string;
   recipes: AngularFirestoreCollection<Recipe>;
   recipeDetails: AngularFirestoreCollection<RecipeDetails>;
+  recipeArray: Recipe[] = [];
 
   constructor(
     private store: AngularFirestore,
@@ -29,6 +30,7 @@ export class RecipeService {
     this.recipeDetails = this.store.collection(
       'users/' + this.userId + '/recipeDetails'
     );
+    this.recipes.valueChanges({idField: "id"}).subscribe(recipes => this.recipeArray = recipes)
   }
 
   getRecipeList(): AngularFirestoreCollection<Recipe> | undefined {

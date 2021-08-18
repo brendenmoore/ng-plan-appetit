@@ -2,13 +2,18 @@
   <h4 class="mt-5 mb-3">Upcoming Meals:</h4>
   <ul cdkDropListGroup class="list-group">
     <li *ngFor="let day of menu; index as i" class="list-group-item">
-      <p>{{ day.date | date }}</p>
+      <p>{{ day.date | date:'fullDate' }}</p>
       <div *ngIf="day.menuDay; else suggestion">
         <div *ngIf="day.menuDay.meal as meal">
           <div cdkDropList [cdkDropListData]="meal" class="example-list" (cdkDropListDropped)="drop($event)">
-            <div class="example-box" cdkDrag *ngFor="let recipe of meal.recipes">{{ recipe.name }}</div>
+            <div class="example-box" cdkDrag *ngFor="let recipe of meal.recipes">{{ recipe.name }}
+              <span>
+                <button class="btn btn-sm btn-light" [routerLink]="['/recipe', recipe.id]">View</button>
+                <button class="btn btn-sm btn-light" (click)="removeRecipe(recipe, day.menuDay)">Remove</button>
+              </span>
+            </div>
           </div>
-          <app-recipe-selector></app-recipe-selector>
+          <app-recipe-selector [recipes]="recipes" (recipeSelected)="addRecipe($event, day.menuDay)"></app-recipe-selector>
         </div>
       </div>
       <ng-template #suggestion>
