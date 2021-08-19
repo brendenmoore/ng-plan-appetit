@@ -7,6 +7,7 @@ import { Recipe, RecipeDetails, Template } from '../models';
 import { UserService } from '../user.service';
 import firebase from 'firebase/app';
 import { DatabaseService } from './database.service';
+import { MenuService } from './menu.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,8 @@ export class RecipeService {
   constructor(
     private store: AngularFirestore,
     private user: UserService,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private menuService: MenuService
   ) {
     this.userId = this.user.uid;
     this.recipes = this.store.collection(
@@ -79,30 +81,33 @@ export class RecipeService {
   //   return batch.commit();
   // }
 
-  deleteRecipe(id: string) {
+  async deleteRecipe(id: string) {
     let recipeRef = this.recipes.doc<Recipe>(id).ref;
     let recipeDetailsRef = this.recipeDetails.doc(id).ref;
     let templateRef = this.store.doc<Template>(
       'users/' + this.userId + '/template/template'
     ).ref;
-    
+    await this.menuService.deleteRecipeFromMenu(id)
     this.store.firestore.runTransaction(transaction => {
-      return Promise.all([transaction.get(templateRef)]).then(([template]) => {
-         const scheduledMeals = [...(template.data()?.scheduledMeals || [])];
-         const updatedScheduledMeals = scheduledMeals.map((meal) => {
-           const updatedRecipes = meal.recipes.filter((recipe) => {
-             return recipe.id !== id
-           });
-           meal.recipes = updatedRecipes;
-           return meal;
-         });
+      return Promise.all([
+        transaction.get(templateRef),
 
-         transaction.update(templateRef, {
-           scheduledMeals: updatedScheduledMeals,
-         });
-         transaction.delete(recipeRef);
-         transaction.delete(recipeDetailsRef)
-      })
+      ]).then(([template]) => {
+        const scheduledMeals = [...(template.data()?.scheduledMeals || [])];
+        const updatedScheduledMeals = scheduledMeals.map((meal) => {
+          const updatedRecipes = meal.recipes.filter((recipe) => {
+            return recipe.id !== id;
+          });
+          meal.recipes = updatedRecipes;
+          return meal;
+        });
+
+        transaction.update(templateRef, {
+          scheduledMeals: updatedScheduledMeals,
+        });
+        transaction.delete(recipeRef);
+        transaction.delete(recipeDetailsRef);
+      });
     })
   }
 
