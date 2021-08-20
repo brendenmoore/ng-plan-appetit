@@ -1,5 +1,5 @@
 export interface Recipe {
-  id?: string;
+  id: string;
   name: string;
   createdOn: number;
 }

@@ -1,1 +1,21 @@
-<p>recipe-stack-view works!</p>
+<div class="mx-3">
+  <div *ngIf="recipe" class="my-3">
+    <h1 class="text-xl">{{ recipe.name }}</h1>
+  </div>
+  <div class="space-y-3" *ngIf="recipeDetails$ | async as data">
+    <div>
+      <h2 class="text-lg">Ingredients:</h2>
+      <ul class="list-disc list-inside">
+        <li *ngFor="let ingredient of data.ingredients" >{{ingredient}}</li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="text-lg">Directions:</h2>
+      <p>{{ data.directions }}</p>
+    </div>
+    <div>
+      <h2 class="text-lg">Notes:</h2>
+      <p>{{ data.notes }}</p>
+    </div>
+  </div>
+</div>

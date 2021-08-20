@@ -37,4 +37,6 @@
   </mat-accordion>
 </app-tab-layout>
 
-<app-stack-view *ngIf="recipeView" (onClose)="hideRecipe()"></app-stack-view>
+<app-stack-view *ngIf="recipeView" (onClose)="hideRecipe()">
+  <app-recipe-stack-view [recipe]="recipeView"></app-recipe-stack-view>
+</app-stack-view>
