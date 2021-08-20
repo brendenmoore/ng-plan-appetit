@@ -1,10 +1,5 @@
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">Plan Appetit</a>
-  <ul *ngIf="auth.user | async as user" ngbNav>
-    <span class="navbar-text">Hello {{ user.displayName }}!</span>
-    <button (click)="userService.logout()" class="btn">Logout</button>
-  </ul>
-</nav>
+<app-navbar></app-navbar>
+
 <div class="container">
   <div *ngIf="auth.user | async as user; else showLogin">
     <router-outlet></router-outlet>
