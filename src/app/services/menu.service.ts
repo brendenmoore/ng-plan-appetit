@@ -4,7 +4,7 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
-import { Meal, Menu, MenuDay, Template } from '../models';
+import { Meal, Menu, MenuDay, Recipe, Template } from '../models';
 import { UserService } from '../user.service';
 import { endOfWeek, startOfWeek, eachDayOfInterval, format } from 'date-fns';
 import { newMeal } from './util';
@@ -56,6 +56,23 @@ export class MenuService {
       })
     })
   }
+
+  async updateRecipeInMenu(updatedRecipe: Recipe) {
+    let menu = await this.menu.get().toPromise()
+      menu.forEach(doc => {
+        let recipes = doc.data().meal.recipes.map(recipe => {
+          if (recipe.id === updatedRecipe.id) {
+            return updatedRecipe
+          }
+          else {
+            return recipe;
+          }
+        })
+        doc.ref.update({"meal.recipes": recipes})
+      })
+
+  }
+
 
   updateMultipleDays(menuDays: MenuDay[] | undefined) {
     if (!menuDays) {

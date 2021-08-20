@@ -112,11 +112,12 @@ export class RecipeService {
   }
 
 
-  updateRecipeName(newRecipe: Recipe) {
+  async updateRecipeName(newRecipe: Recipe) {
     let recipeRef = this.recipes.doc<Recipe>(newRecipe.id).ref;
     let templateRef = this.store.doc<Template>(
       'users/' + this.userId + '/template/template'
     ).ref;
+    await this.menuService.updateRecipeInMenu(newRecipe);
     this.store.firestore.runTransaction((transaction) => {
       return Promise.all([
         transaction.get(templateRef),
