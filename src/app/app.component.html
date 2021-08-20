@@ -1,45 +1,5 @@
-<app-navbar></app-navbar>
-
 <div class="container">
-  <div *ngIf="auth.user | async as user; else showLogin">
+  <div *ngIf="auth.user | async as user">
     <router-outlet></router-outlet>
-    <!-- <h4 class="my-5">My Meal Planning Prototype:</h4>
-    <mat-vertical-stepper>
-      <mat-step label="Add Recipes">
-        <form>
-          <div class="bg-light p-5">
-            <div class="row">
-              <app-add-recipe class="col"></app-add-recipe>
-              <app-recipe-list class="col"></app-recipe-list>
-            </div>
-          </div>
-          <div>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </form>
-      </mat-step>
-      <mat-step label="Create Meals">
-        <form>
-          <div class="bg-light p-5">
-            <div class="row">
-              <app-add-meal class="col"></app-add-meal>
-              <app-meal-list class="col"></app-meal-list>
-            </div>
-          </div>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </form>
-      </mat-step>
-      <mat-step label="Create your meal template">
-        <app-drag-drop></app-drag-drop>
-      </mat-step>
-    </mat-vertical-stepper> -->
   </div>
-
-  <ng-template #showLogin>
-    <p>Please login.</p>
-    <button (click)="userService.login()">Login with Google</button>
-  </ng-template>
 </div>

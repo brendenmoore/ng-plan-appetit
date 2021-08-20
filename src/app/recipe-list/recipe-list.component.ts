@@ -14,6 +14,7 @@ import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
 })
 export class RecipeListComponent implements OnInit {
   recipeList$?: Observable<Recipe[]>;
+  recipeView?: Recipe;
 
   constructor(private recipeService: RecipeService, public dialog: MatDialog) {
     this.recipeList$ = this.recipeService
@@ -32,4 +33,13 @@ export class RecipeListComponent implements OnInit {
   openDialog(){
     const dialogRef = this.dialog.open(AddRecipeComponent);
   }
+
+  showRecipe(recipe: Recipe) {
+    this.recipeView = recipe;
+  }
+
+  hideRecipe() {
+    this.recipeView = undefined;
+  }
+
 }

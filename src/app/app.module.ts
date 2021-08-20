@@ -31,6 +31,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { TodayViewComponent } from './today-view/today-view.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { StackViewComponent } from './shared/stack-view/stack-view.component';
+import { RecipePageComponent } from './recipes/recipe-page/recipe-page.component';
+import { RecipeStackViewComponent } from './recipes/recipe-stack-view/recipe-stack-view.component';
+import { TabLayoutComponent } from './shared/tab-layout/tab-layout.component';
+import { LoginComponent } from './auth/login/login.component';
 
 
 
@@ -49,6 +54,11 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     RecipeSelectorComponent,
     TodayViewComponent,
     NavbarComponent,
+    StackViewComponent,
+    RecipePageComponent,
+    RecipeStackViewComponent,
+    TabLayoutComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

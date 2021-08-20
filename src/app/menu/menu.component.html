@@ -1,56 +1,58 @@
-<app-today-view></app-today-view>
-<div *ngIf="menu">
-  <h4 class="mt-5 mb-3 bg-yellow-100">Upcoming Meals:</h4>
-  <ul cdkDropListGroup class="list-group">
-    <li *ngFor="let day of menu; index as i" class="list-group-item">
-      <p>{{ day.date | date: "fullDate" }}</p>
-      <div *ngIf="day.menuDay">
-        <div *ngIf="day.menuDay.meal as meal">
-          <div
-            cdkDropList
-            [cdkDropListData]="meal"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)"
-          >
+<app-tab-layout>
+  <app-today-view></app-today-view>
+  <div *ngIf="menu">
+    <h4 class="mt-5 mb-3 bg-yellow-100">Upcoming Meals:</h4>
+    <ul cdkDropListGroup class="list-group">
+      <li *ngFor="let day of menu; index as i" class="list-group-item">
+        <p>{{ day.date | date: "fullDate" }}</p>
+        <div *ngIf="day.menuDay">
+          <div *ngIf="day.menuDay.meal as meal">
             <div
-              class="example-box"
-              cdkDrag
-              *ngFor="let recipe of meal.recipes"
+              cdkDropList
+              [cdkDropListData]="meal"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)"
             >
-              {{ recipe.name }}
-              <span>
-                <button
-                  class="btn btn-sm btn-light"
-                  [routerLink]="['/recipe', recipe.id]"
-                >
-                  View
-                </button>
-                <button
-                  class="btn btn-sm btn-light"
-                  (click)="removeRecipe(recipe, day.menuDay)"
-                >
-                  Remove
-                </button>
-              </span>
+              <div
+                class="example-box"
+                cdkDrag
+                *ngFor="let recipe of meal.recipes"
+              >
+                {{ recipe.name }}
+                <span>
+                  <button
+                    class="btn btn-sm btn-light"
+                    [routerLink]="['/recipe', recipe.id]"
+                  >
+                    View
+                  </button>
+                  <button
+                    class="btn btn-sm btn-light"
+                    (click)="removeRecipe(recipe, day.menuDay)"
+                  >
+                    Remove
+                  </button>
+                </span>
+              </div>
+            </div>
+            <app-recipe-selector
+              [recipes]="recipes"
+              (recipeSelected)="addRecipe($event, day.menuDay)"
+            ></app-recipe-selector>
+          </div>
+        </div>
+        <div *ngIf="day.menuDay.meal.recipes.length === 0">
+          <div *ngIf="template">
+            <div *ngIf="template.scheduledMeals[i] as meal">
+              Suggested Meal:
+              <p *ngFor="let recipe of meal.recipes">
+                {{ recipe.name }}
+              </p>
+              <button (click)="onAccept(day.date, meal)">Accept</button>
             </div>
           </div>
-          <app-recipe-selector
-            [recipes]="recipes"
-            (recipeSelected)="addRecipe($event, day.menuDay)"
-          ></app-recipe-selector>
         </div>
-      </div>
-      <div *ngIf="day.menuDay.meal.recipes.length === 0">
-        <div *ngIf="template">
-          <div *ngIf="template.scheduledMeals[i] as meal">
-            Suggested Meal:
-            <p *ngFor="let recipe of meal.recipes">
-              {{ recipe.name }}
-            </p>
-            <button (click)="onAccept(day.date, meal)">Accept</button>
-          </div>
-        </div>
-      </div>
-    </li>
-  </ul>
-</div>
+      </li>
+    </ul>
+  </div>
+</app-tab-layout>
