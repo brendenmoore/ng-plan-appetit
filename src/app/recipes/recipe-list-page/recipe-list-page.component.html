@@ -1,0 +1,28 @@
+<app-tab-layout>
+  <div class="h-full flex flex-col justify-between">
+    <!-- Filters -->
+    <div class="p-3 pb-1 shadow">
+      <input [formControl]="filterInput" type="text" placeholder="search" class="w-full rounded-full">
+      <div class="whitespace-nowrap overflow-x-auto py-3 flex gap-3">
+        <button *ngIf="selectedCategories.length > 0">clear filters</button>
+        <button *ngFor="let category of testCategories" class="bg-gray-100 rounded-full px-3" (click)="category.selected = !category.selected" [ngClass]="{'bg-purple-200': category.selected}">{{category.name}}</button>
+      </div>
+    </div>
+    <!-- Results -->
+    <div *ngIf="recipes" class="divide-y-2 overflow-y-auto mx-3">
+      <button (click)="showRecipe(recipe)" *ngFor="let recipe of recipes" class="block w-full text-left p-3 hover:bg-gray-50">{{recipe.name}}</button>
+    </div>
+  </div>
+  <!-- Floating Button -->
+  <button (click)="showForm()" class="fixed bottom-20 right-3 z-20 bg-purple-500 text-white rounded-full px-5 py-3 shadow-md active:shadow-none">Add Recipe</button>
+</app-tab-layout>
+
+<!-- Sub pages -->
+<app-stack-view *ngIf="recipeView" (onClose)="hideRecipe()">
+  <app-recipe-stack-view [recipe]="recipeView"></app-recipe-stack-view>
+</app-stack-view>
+
+<app-stack-view *ngIf="newRecipe" (onClose)="hideForm()">
+  <app-add-recipe></app-add-recipe>
+</app-stack-view>
+

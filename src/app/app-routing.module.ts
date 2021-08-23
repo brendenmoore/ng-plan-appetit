@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './auth/login/login.component';
 import { MenuComponent } from './menu/menu.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import { RecipeListPageComponent } from './recipes/recipe-list-page/recipe-list-page.component';
 import { RecipePageComponent } from './recipes/recipe-page/recipe-page.component';
 import { DragDropComponent } from './template-builder/drag-drop/drag-drop.component';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
@@ -11,7 +13,8 @@ import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 
 const routes: Routes = [
   {path: "", component: AppComponent},
-  {path: "recipes", component: RecipeListComponent},
+  {path: "login", component: LoginComponent},
+  {path: "recipes", component: RecipeListPageComponent},
   {path: "recipe/:id", component: RecipePageComponent},
   {path: "template", component: DragDropComponent},
   {path: "menu", component: MenuComponent},

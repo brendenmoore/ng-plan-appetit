@@ -6,7 +6,9 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      boxShadow: ["active"],
+    },
   },
   plugins: [
     require("@tailwindcss/aspect-ratio"),
