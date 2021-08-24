@@ -5,7 +5,7 @@
       <input [formControl]="filterInput" type="text" placeholder="search" class="w-full rounded-full">
       <div class="whitespace-nowrap overflow-x-auto py-3 flex gap-3">
         <button *ngIf="selectedCategories.length > 0">clear filters</button>
-        <button *ngFor="let category of testCategories" class="bg-gray-100 rounded-full px-3" (click)="category.selected = !category.selected" [ngClass]="{'bg-purple-200': category.selected}">{{category.name}}</button>
+        <button *ngFor="let category of testCategories" class="bg-gray-100 rounded-full px-3" (click)="category.selected = !category.selected" >{{category.name}}</button>
       </div>
     </div>
     <!-- Results -->

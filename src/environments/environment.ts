@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  apiURL: 'localhost:3000/admin/api',
   firebase: {
     apiKey: 'AIzaSyALpWy5IxtDdaYcJW1Us3_3cVaTbGVa0p4',
     authDomain: 'plan-appetit.firebaseapp.com',

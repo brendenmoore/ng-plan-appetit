@@ -11,7 +11,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddMealComponent } from './add-meal/add-meal.component';
 import { MealListComponent } from './meal-list/meal-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -38,6 +37,7 @@ import { TabLayoutComponent } from './shared/tab-layout/tab-layout.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RecipeListPageComponent } from './recipes/recipe-list-page/recipe-list-page.component';
 import { LogoutComponent } from './auth/logout/logout.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 
@@ -73,7 +73,6 @@ import { LogoutComponent } from './auth/logout/logout.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    NgbModule,
     BrowserAnimationsModule,
     MatStepperModule,
     MatFormFieldModule,
@@ -82,7 +81,13 @@ import { LogoutComponent } from './auth/logout/logout.component';
     MatDialogModule,
     MatExpansionModule,
     MatAutocompleteModule,
-    MatInputModule
+    MatInputModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent],
