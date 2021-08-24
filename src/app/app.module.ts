@@ -37,6 +37,7 @@ import { RecipeStackViewComponent } from './recipes/recipe-stack-view/recipe-sta
 import { TabLayoutComponent } from './shared/tab-layout/tab-layout.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RecipeListPageComponent } from './recipes/recipe-list-page/recipe-list-page.component';
+import { LogoutComponent } from './auth/logout/logout.component';
 
 
 
@@ -61,6 +62,7 @@ import { RecipeListPageComponent } from './recipes/recipe-list-page/recipe-list-
     TabLayoutComponent,
     LoginComponent,
     RecipeListPageComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

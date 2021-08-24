@@ -13,4 +13,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  fakeLogin(){
+      this.userService.loginWithPassword("brendenm17+test@gmail.com", "testtestyay");
+  }
+
 }

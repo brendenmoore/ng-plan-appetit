@@ -21,4 +21,14 @@ export class UserService {
   logout() {
     this.auth.signOut();
   }
+
+  loginWithPassword(email: string, password: string) {
+    this.auth.signInWithEmailAndPassword(email, password).then(result => {
+      this.router.navigate(["/recipes"]);
+    });
+  }
+
+  register(){
+    return this.auth.createUserWithEmailAndPassword("brendenm17+test@gmail.com", "testtestyay");
+  }
 }
