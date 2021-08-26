@@ -13,7 +13,7 @@ import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 
 
 const routes: Routes = [
-  {path: "", component: AppComponent},
+  {path: "", component: RecipeListPageComponent},
   {path: "login", component: LoginComponent},
   {path: "logout", component: LogoutComponent},
   {path: "recipes", component: RecipeListPageComponent},
