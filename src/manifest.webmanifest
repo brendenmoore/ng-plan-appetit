@@ -1,6 +1,6 @@
 {
-  "name": "ng-prepappetit",
-  "short_name": "ng-prepappetit",
+  "name": "Plan Appetit",
+  "short_name": "PlanApp",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
