@@ -15,7 +15,7 @@ export class UserService {
 
   login() {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(result => {
-      this.router.navigate(["/recipes"]);
+      this.router.navigate(["/app/recipes"]);
     });
   }
   logout() {
@@ -26,7 +26,7 @@ export class UserService {
 
   loginWithPassword(email: string, password: string) {
     this.auth.signInWithEmailAndPassword(email, password).then(result => {
-      this.router.navigate(["/recipes"]);
+      this.router.navigate(["/app/recipes"]);
     });
   }
 
