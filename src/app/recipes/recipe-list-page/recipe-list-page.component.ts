@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -27,7 +28,7 @@ export class RecipeListPageComponent implements OnInit {
   selectedCategories: string[] = [];
   filterInput = new FormControl();
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService, public auth: AngularFireAuth) {
   }
 
   ngOnInit(): void {

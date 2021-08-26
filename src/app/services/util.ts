@@ -11,3 +11,4 @@ export function newMeal(recipes?: Recipe[]): Meal {
     recipes: recipes || [],
   };
 }
+

@@ -38,6 +38,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RecipeListPageComponent } from './recipes/recipe-list-page/recipe-list-page.component';
 import { LogoutComponent } from './auth/logout/logout.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -63,6 +64,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     LoginComponent,
     RecipeListPageComponent,
     LogoutComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

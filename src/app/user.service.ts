@@ -19,7 +19,9 @@ export class UserService {
     });
   }
   logout() {
-    this.auth.signOut();
+    this.auth.signOut().then(result => {
+      this.router.navigate(["/"])
+    });
   }
 
   loginWithPassword(email: string, password: string) {
