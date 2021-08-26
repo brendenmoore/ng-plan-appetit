@@ -15,7 +15,7 @@ const redirectLoggedInToRecipes = () => redirectLoggedInTo(['app/recipes']);
 const redirectLoggedInToLogout = () => redirectLoggedInTo(['logout']);
 
 const routes: Routes = [
-  {path: "", component: HomeComponent},
+  {path: "", component: LoginComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectLoggedInToRecipes}},
   {path: "login", component: LoginComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectLoggedInToRecipes}},
   {path: "logout", component: LogoutComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
   {path: "app", component: AppComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}, children: [
