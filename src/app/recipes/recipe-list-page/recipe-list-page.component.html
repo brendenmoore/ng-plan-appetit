@@ -8,9 +8,9 @@
           <mat-icon class="text-gray-600 align-middle">clear</mat-icon>
         </button>
       </div>
-      <div class="whitespace-nowrap overflow-x-auto py-3 flex gap-3">
+      <div *ngIf="categories.length > 0" class="whitespace-nowrap overflow-x-auto pt-3 pb-2 flex gap-3 scrollbar-hidden">
         <button *ngIf="selectedCategories.length > 0">clear filters</button>
-        <button *ngFor="let category of categories" class="bg-gray-100 rounded-full px-3" (click)="null" >{{category}}</button>
+        <button *ngFor="let category of testCategories" class="bg-gray-100 rounded-full px-3" (click)="null" >{{category.name}}</button>
       </div>
     </div>
     <!-- Results -->
