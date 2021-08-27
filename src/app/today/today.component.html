@@ -1,0 +1,11 @@
+<app-tab-layout>
+  <div class="m-3">
+    <h1>Today's Recipes:</h1>
+    <div *ngIf="meal && meal.recipes">
+      There's a menu
+      <div *ngFor="let recipe of meal.recipes">
+        <app-view-recipe [recipeId]="recipe.id"></app-view-recipe>
+      </div>
+    </div>
+  </div>
+</app-tab-layout>

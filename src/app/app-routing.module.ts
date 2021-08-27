@@ -9,6 +9,7 @@ import { DragDropComponent } from './template-builder/drag-drop/drag-drop.compon
 import { AngularFireAuthGuard, redirectUnauthorizedTo, redirectLoggedInTo, canActivate } from '@angular/fire/auth-guard';
 import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
+import { TodayComponent } from './today/today.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToRecipes = () => redirectLoggedInTo(['app/recipes']);
@@ -23,6 +24,7 @@ const routes: Routes = [
     {path: "recipe/:id", component: RecipePageComponent},
     {path: "template", component: DragDropComponent},
     {path: "menu", component: MenuComponent},
+    {path: "today", component: TodayComponent},
   ]}
 
 ];

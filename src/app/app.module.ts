@@ -39,6 +39,7 @@ import { LogoutComponent } from './auth/logout/logout.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { HomeComponent } from './home/home.component';
 import {MatIconModule} from '@angular/material/icon';
+import { TodayComponent } from './today/today.component';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import {MatIconModule} from '@angular/material/icon';
     RecipeListPageComponent,
     LogoutComponent,
     HomeComponent,
+    TodayComponent,
   ],
   imports: [
     BrowserModule,
