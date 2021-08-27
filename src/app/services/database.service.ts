@@ -3,7 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
-import { UserService } from '../user.service';
+import { UserService } from './user.service';
 import firebase from 'firebase/app';
 import { Recipe } from '../models';
 

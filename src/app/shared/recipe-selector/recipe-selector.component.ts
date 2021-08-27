@@ -37,8 +37,8 @@ export class RecipeSelectorComponent implements OnInit {
   onSelect(event: MatAutocompleteSelectedEvent) {
     if (typeof event.option.value === 'string') {
       console.log(event.option.value)
-      let newRecipe: Recipe = {id: generateUid(), name: event.option.value, createdOn: Date.now()};
-      this.recipeService.addRecipe(event.option.value, undefined, undefined, undefined, newRecipe.id).then(result => {
+      let newRecipe: Recipe = {id: generateUid(), name: event.option.value, createdOn: Date.now(), categories: []};
+      this.recipeService.addRecipe(event.option.value, newRecipe.id).then(result => {
         this.recipeSelected.emit(newRecipe)
       })
     } else {

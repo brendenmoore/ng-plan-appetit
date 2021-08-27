@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { filter, map, startWith } from 'rxjs/operators';
 import { Recipe } from 'src/app/models';
 import { RecipeService } from 'src/app/services/recipe.service';
 
@@ -26,9 +26,12 @@ export class RecipeListPageComponent implements OnInit {
   filteredRecipes?: Observable<Recipe[]>;
   testCategories = ["Meals", "Sides", "Desserts", "Baking", "Veggies", "Baby Food", "Poop"].map(name => new CategoryFilter(name))
   selectedCategories: string[] = [];
+  categories: string[];
+  selectedCategory: string | undefined;
   filterInput = new FormControl();
 
   constructor(private recipeService: RecipeService, public auth: AngularFireAuth) {
+    this.categories = recipeService.getCategories();
   }
 
   ngOnInit(): void {

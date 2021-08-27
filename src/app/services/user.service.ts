@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import firebase from 'firebase/app';
 
@@ -11,6 +12,7 @@ export class UserService {
 
   constructor(private auth: AngularFireAuth, private router: Router) {
     this.auth.user.subscribe((user) => (this.uid = user?.uid));
+
   }
 
   login() {

@@ -9,7 +9,7 @@ import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Meal, Menu, Recipe, Template } from '../models';
-import { UserService } from '../user.service';
+import { UserService } from './user.service';
 import { RecipeService } from './recipe.service';
 import { generateUid, newMeal } from './util';
 

@@ -5,7 +5,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { Meal, Menu, MenuDay, Recipe, Template } from '../models';
-import { UserService } from '../user.service';
+import { UserService } from './user.service';
 import { endOfWeek, startOfWeek, eachDayOfInterval, format } from 'date-fns';
 import { newMeal } from './util';
 import firebase from 'firebase/app';

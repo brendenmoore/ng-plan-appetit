@@ -4,7 +4,7 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
 import { Recipe, RecipeDetails, Template } from '../models';
-import { UserService } from '../user.service';
+import { UserService } from './user.service';
 import firebase from 'firebase/app';
 import { DatabaseService } from './database.service';
 import { MenuService } from './menu.service';
@@ -17,6 +17,7 @@ export class RecipeService {
   recipes: AngularFirestoreCollection<Recipe>;
   recipeDetails: AngularFirestoreCollection<RecipeDetails>;
   recipeArray: Recipe[] = [];
+  categories: string[] = [];
 
   constructor(
     private store: AngularFirestore,
@@ -32,7 +33,19 @@ export class RecipeService {
     this.recipeDetails = this.store.collection(
       'users/' + this.userId + '/recipeDetails'
     );
-    this.recipes.valueChanges({idField: "id"}).subscribe(recipes => this.recipeArray = recipes)
+    this.recipes.valueChanges({idField: "id"}).subscribe(recipes => {
+      this.recipeArray = recipes;
+      recipes.forEach(recipe => {
+        if (recipe.categories) {
+          recipe.categories.forEach(category => {
+            if (!this.categories.includes(category)) {
+              this.categories.push(category)
+            }
+          })
+        }
+      })
+      console.log(this.categories);
+    })
   }
 
   getRecipeList(): AngularFirestoreCollection<Recipe> | undefined {
@@ -48,18 +61,23 @@ export class RecipeService {
     return this.recipeDetails.doc(id);
   }
 
+  getCategories() {
+    return this.categories;
+  }
+
   addRecipe(
     name: string,
+    id : string = this.databaseService.generateUid(),
     notes: string = "",
     directions: string = "",
     ingredients: string[] = [],
-    id : string = this.databaseService.generateUid()
+    categories: string[] = [],
   ) {
     let batch = this.store.firestore.batch();
     let recipeRef = this.recipes.doc(id).ref;
     let recipeDetailsRef = this.recipeDetails.doc(id).ref;
-    let newRecipe = { name: name, createdOn: Date.now() };
-    let newRecipeDetails = {
+    let newRecipe: Recipe = { id: id, name: name, createdOn: Date.now(), categories: categories };
+    let newRecipeDetails: RecipeDetails = {
       id: id,
       notes: notes,
       directions: directions,

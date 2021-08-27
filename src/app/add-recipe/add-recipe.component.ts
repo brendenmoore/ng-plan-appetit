@@ -13,6 +13,7 @@ export class AddRecipeComponent implements OnInit {
   notes: string = '';
   directions: string = '';
   ingredients: string = '';
+  categories: string = '';
 
   constructor(private recipeService: RecipeService) {}
 
@@ -23,16 +24,19 @@ export class AddRecipeComponent implements OnInit {
     this.recipeService
       .addRecipe(
         this.name,
+        undefined,
         this.notes,
         this.directions,
-        this.ingredients.split('\n')
+        this.ingredients.split('\n'),
+        this.categories.split('\n')
       )
       .then((recipe) => {
-        
+        // This could be done with form.reset()
         this.name = '';
         this.notes = '';
         this.directions = '';
         this.ingredients = '';
+        this.categories = '';
       });
 
   }
