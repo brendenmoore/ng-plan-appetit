@@ -32,7 +32,13 @@ export class RecipeListPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.recipeService.getRecipeList()?.valueChanges({"idField": "id"}).subscribe(recipes => this.recipes = recipes)
+    this.recipeService.getRecipeList()?.valueChanges({"idField": "id"}).subscribe(recipes => {
+      this.recipes = recipes
+      this.filterRecipes()
+    })
+  }
+
+  filterRecipes() {
     this.filteredRecipes = this.filterInput.valueChanges.pipe(
       startWith(''),
       map((value) => (typeof value === 'string' ? value : value.name)),

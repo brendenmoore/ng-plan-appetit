@@ -39,7 +39,7 @@ import { RecipeListPageComponent } from './recipes/recipe-list-page/recipe-list-
 import { LogoutComponent } from './auth/logout/logout.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { HomeComponent } from './home/home.component';
-
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -84,6 +84,7 @@ import { HomeComponent } from './home/home.component';
     MatExpansionModule,
     MatAutocompleteModule,
     MatInputModule,
+    MatIconModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

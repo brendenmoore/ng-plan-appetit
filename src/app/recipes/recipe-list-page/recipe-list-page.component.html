@@ -2,15 +2,19 @@
   <div class="h-full flex flex-col justify-between">
     <!-- Filters -->
     <div class="p-3 pb-1 shadow">
-      <input [formControl]="filterInput" type="text" placeholder="search" class="w-full rounded-full">
+      <div class="grid">
+        <input [formControl]="filterInput" type="text" placeholder="search" class="rounded-full col-span-full row-start-1">
+        <button *ngIf="filterInput.value" (click)="filterInput.reset('')" class="col-start-1 col-span-1 right-3 row-start-1 justify-self-end px-4"><mat-icon class="align-middle">clear</mat-icon></button>
+      </div>
       <div class="whitespace-nowrap overflow-x-auto py-3 flex gap-3">
         <button *ngIf="selectedCategories.length > 0">clear filters</button>
         <button *ngFor="let category of testCategories" class="bg-gray-100 rounded-full px-3" (click)="category.selected = !category.selected" >{{category.name}}</button>
       </div>
     </div>
     <!-- Results -->
-    <div *ngIf="recipes" class="divide-y-2 overflow-y-auto mx-3">
-      <button (click)="showRecipe(recipe)" *ngFor="let recipe of recipes" class="block w-full text-left p-3 hover:bg-gray-50">{{recipe.name}}</button>
+    <div *ngIf="filteredRecipes | async as recipeResults" class="divide-y-2 overflow-y-auto mx-3">
+      <button (click)="showRecipe(recipe)" *ngFor="let recipe of recipeResults" class="block w-full text-left p-3 hover:bg-gray-50">{{recipe.name}}</button>
+      <button (click)="showForm()" *ngIf="recipeResults.length === 0" class="block w-full p-5">Looks like there's nothing called "{{filterInput.value}}". <br/> Click here to create a new recipe.</button>
     </div>
   </div>
   <!-- Floating Button -->
