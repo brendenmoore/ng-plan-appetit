@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
@@ -7,11 +8,12 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class StackViewComponent implements OnInit {
   @Output() onClose = new EventEmitter();
-  constructor() {}
+  constructor(private location: Location) {}
 
   ngOnInit(): void {}
 
   close(){
-    this.onClose.emit()
+    // this.onClose.emit()
+    this.location.back()
   }
 }

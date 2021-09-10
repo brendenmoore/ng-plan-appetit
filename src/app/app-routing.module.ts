@@ -10,23 +10,51 @@ import { AngularFireAuthGuard, redirectUnauthorizedTo, redirectLoggedInTo, canAc
 import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
 import { TodayComponent } from './today/today.component';
+import { RecipeStackViewComponent } from './recipes/recipe-stack-view/recipe-stack-view.component';
+import { StackViewComponent } from './shared/stack-view/stack-view.component';
+import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToRecipes = () => redirectLoggedInTo(['app/recipes']);
 const redirectLoggedInToLogout = () => redirectLoggedInTo(['logout']);
 
 const routes: Routes = [
-  {path: "", component: LoginComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectLoggedInToRecipes}},
-  {path: "login", component: LoginComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectLoggedInToRecipes}},
-  {path: "logout", component: LogoutComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
-  {path: "app", component: AppComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}, children: [
-    {path: "recipes", component: RecipeListPageComponent},
-    {path: "recipe/:id", component: RecipePageComponent},
-    {path: "template", component: DragDropComponent},
-    {path: "menu", component: MenuComponent},
-    {path: "today", component: TodayComponent},
-  ]}
-
+  {
+    path: '',
+    component: LoginComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectLoggedInToRecipes },
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectLoggedInToRecipes },
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'app',
+    component: AppComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+    children: [
+      { path: 'recipes', component: RecipeListPageComponent },
+      { path: 'recipe', component: StackViewComponent, children: [
+        {path: 'new', component: AddRecipeComponent},
+        {path: ':id', component: RecipeStackViewComponent},
+      ]},
+      { path: 'recipes/new', component: RecipeListPageComponent },
+      { path: 'recipes/:id', component: RecipeStackViewComponent },
+      { path: 'template', component: DragDropComponent },
+      { path: 'menu', component: MenuComponent },
+      { path: 'today', component: TodayComponent },
+    ],
+  },
 ];
 
 @NgModule({

@@ -15,19 +15,10 @@
     </div>
     <!-- Results -->
     <div *ngIf="filteredRecipes | async as recipeResults" class="divide-y-2 overflow-y-auto mx-3">
-      <button (click)="showRecipe(recipe)" *ngFor="let recipe of recipeResults" class="block w-full text-left p-3 hover:bg-gray-50">{{recipe.name}}</button>
+      <button [routerLink]="['../recipe/', recipe.id]" *ngFor="let recipe of recipeResults" class="block w-full text-left p-3 hover:bg-gray-50">{{recipe.name}}</button>
       <button (click)="showForm()" *ngIf="recipeResults.length === 0" class="block w-full p-5">Looks like there's nothing called "{{filterInput.value}}". <br/> Click here to create a new recipe.</button>
     </div>
   </div>
   <!-- Floating Button -->
-  <button (click)="showForm()" class="fixed bottom-20 right-3 z-20 bg-purple-500 text-white rounded-full px-5 py-3 shadow-md active:shadow-none">Add Recipe</button>
+  <button routerLink="../recipe/new" class="fixed bottom-20 right-3 z-20 bg-purple-500 text-white rounded-full px-5 py-3 shadow-md active:shadow-none">Add Recipe</button>
 </app-tab-layout>
-
-<!-- Sub pages -->
-<app-stack-view *ngIf="recipeView" (onClose)="hideRecipe()">
-  <app-recipe-stack-view [recipe]="recipeView"></app-recipe-stack-view>
-</app-stack-view>
-
-<app-stack-view *ngIf="newRecipe" (onClose)="hideForm()">
-  <app-add-recipe></app-add-recipe>
-</app-stack-view>

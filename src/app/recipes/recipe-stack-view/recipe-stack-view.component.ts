@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Recipe, RecipeDetails } from 'src/app/models';
 import { RecipeService } from 'src/app/services/recipe.service';
@@ -9,15 +10,23 @@ import { RecipeService } from 'src/app/services/recipe.service';
   styleUrls: ['./recipe-stack-view.component.css'],
 })
 export class RecipeStackViewComponent implements OnInit {
-  @Input() recipe?: Recipe;
+  recipe?: Recipe;
+  recipeId?: string;
   recipeDetails$?: Observable<RecipeDetails | undefined>
 
-  constructor(private recipeService: RecipeService) {}
+  constructor(private recipeService: RecipeService, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.params.subscribe(params => {
+      this.recipeId = params.id;
+      this.recipeService.getRecipeById(params.id).valueChanges().subscribe(recipe => {
+        if (recipe) {
+          this.recipe = recipe
+          this.loadData(recipe);
+        }
+      })
+    })
+  }
 
   ngOnInit(): void {
-    if (this.recipe) {
-      this.loadData(this.recipe)
-    }
   }
 
   loadData(recipe: Recipe) {
